@@ -1,0 +1,32 @@
+ID: mta_multi
+_schema-version: '2.1'
+description: Multi-Target Application for Multi-Tenant Use-Case
+version: 0.0.1
+
+modules:
+ - name: web
+   type: html5
+   path: web
+   parameters:
+      disk-quota: 256M
+      memory: 256M
+   build-parameters:
+      builder: grunt
+   requires:
+    - name: uaa_mta_multi
+    - name: dest_mta_multi
+
+resources:
+ - name: uaa_mta_multi
+   parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+   type: org.cloudfoundry.managed-service
+
+ - name: dest_mta_multi
+   parameters:
+      service-plan: lite
+      service: destination
+   type: org.cloudfoundry.managed-service
+
