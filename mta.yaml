@@ -17,6 +17,11 @@ modules:
 
  
 
+
+ - name: web
+   type: html5
+   path: web
+
 resources:
  - name: uaa_mta_multi
    parameters:
