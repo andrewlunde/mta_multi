@@ -4,17 +4,18 @@ description: Multi-Target Application for Multi-Tenant Use-Case
 version: 0.0.1
 
 modules:
- - name: web
-   type: html5
-   path: web
-   parameters:
-      disk-quota: 256M
-      memory: 256M
-   build-parameters:
-      builder: grunt
-   requires:
-    - name: uaa_mta_multi
-    - name: dest_mta_multi
+ - name: main
+   type: nodejs
+   path: main
+   provides:
+    - name: main_api
+      properties:
+         url: ${default-url}
+
+ 
+
+
+ 
 
 resources:
  - name: uaa_mta_multi
