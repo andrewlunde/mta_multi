@@ -15,20 +15,3 @@ modules:
       disk-quota: 512M
       host: multi-web
 
-
- 
-
-resources:
- - name: uaa_mta_multi
-   parameters:
-      path: ./xs-security.json
-      service-plan: application
-      service: xsuaa
-   type: org.cloudfoundry.managed-service
-
- - name: dest_mta_multi
-   parameters:
-      service-plan: lite
-      service: destination
-   type: org.cloudfoundry.managed-service
-
