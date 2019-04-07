@@ -7,20 +7,24 @@ modules:
  - name: main
    type: nodejs
    path: main
+   parameters:
+      app-name: multi-main
+      memory: 512M
+      disk-quota: 512M
+      host: multi-main
    provides:
     - name: main_api
       properties:
          url: ${default-url}
 
- 
-
-
- 
-
-
  - name: web
    type: html5
    path: web
+   parameters:
+      app-name: multi-web
+      memory: 512M
+      disk-quota: 512M
+      host: multi-web
 
 resources:
  - name: uaa_mta_multi
