@@ -14,4 +14,74 @@ modules:
       memory: 512M
       disk-quota: 512M
       host: multi-web
+   properties:
+      TENANT_HOST_PATTERN: "^(.*)-multi-web.cfapps.us10.hana.ondemand.com"
+   requires:
+    - name: multi_uaa
+    - name: python_api
+      group: destinations
+      properties:
+         name: python_be
+         url: '~{url}'
+         forwardAuthToken: true
+    - name: nodejs_api
+      group: destinations
+      properties:
+         name: nodejs_be
+         url: '~{url}'
+         forwardAuthToken: true
 
+ - name: nodejs
+   type: nodejs
+   path: nodejs
+   parameters:
+      app-name: multi-nodejs
+      memory: 512M
+      disk-quota: 512M
+      host: multi-nodejs
+   properties:
+      SAP_JWT_TRUST_ACL:
+       - clientid: "*"
+         identityzone: "*"
+   requires:
+    - name: multi_uaa
+   provides:
+    - name: nodejs_api
+      properties:
+         url: ${default-url}
+
+ - name: python
+   type: python
+   path: python
+   parameters:
+      app-name: multi-python
+      memory: 512M
+      disk-quota: 512M
+      host: multi-python
+   properties:
+      SAP_JWT_TRUST_ACL:
+       - clientid: "*"
+         identityzone: "*"
+   requires:
+    - name: multi_uaa
+   provides:
+    - name: python_api
+      properties:
+         url: '${default-url}'
+
+resources:
+ - name: multi_uaa
+   parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+      shared: true
+   type: org.cloudfoundry.managed-service
+
+#  - name: mt-hw-app-saas-registry
+#    parameters:
+#       path: ./mt_config/config.json
+#       service-plan: application
+#       service: saas-registry
+#       shared: true
+#    type: org.cloudfoundry.managed-service
