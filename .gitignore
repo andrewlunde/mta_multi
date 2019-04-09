@@ -15,3 +15,8 @@ mergedManifestDescriptor.json
 APIExternalProducer.js
 .*/APIExternalProducer.js
 web/.che/project.json
+.mta/
+node_modules/
+package-lock.json
+target/
+tools/
